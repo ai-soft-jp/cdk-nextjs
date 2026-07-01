@@ -45,6 +45,7 @@ export class NextAssetCleanup extends Construct {
       handler: 'index.handler',
       runtime: lambda.Runtime.NODEJS_24_X,
       architecture: lambda.Architecture.ARM_64,
+      environment: { NODE_OPTIONS: '--enable-source-maps' },
       timeout: cdk.Duration.minutes(5),
     });
     props.bucket.grantRead(cleanupFunc);
@@ -68,10 +69,7 @@ export class NextAssetCleanup extends Construct {
       handler: 'index.handler',
       runtime: lambda.Runtime.NODEJS_24_X,
       architecture: lambda.Architecture.ARM_64,
-      environment: {
-        STATE_MACHINE_ARN: stateMachine.stateMachineArn,
-        EXPIRES: String(props.expires.toMilliseconds()),
-      } satisfies import('./functions/start-asset-cleanup').Env,
+      environment: { NODE_OPTIONS: '--enable-source-maps' },
       timeout: cdk.Duration.seconds(10),
     });
     stateMachine.grant(starterFunc, 'states:ListExecutions', 'states:StartExecution');
@@ -83,8 +81,13 @@ export class NextAssetCleanup extends Construct {
     this.resource = new cdk.CustomResource(this, 'Starter', {
       resourceType: 'Custom::NextAssetCleanup',
       serviceToken: provider.serviceToken,
-      properties: { timestamp: Date.now() },
+      properties: {
+        Timestamp: Date.now(),
+        StateMachineArn: stateMachine.stateMachineArn,
+        Expires: props.expires.toMilliseconds(),
+      } satisfies import('./functions/start-asset-cleanup').ResourceProperties,
       serviceTimeout: cdk.Duration.minutes(1),
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
   }
 

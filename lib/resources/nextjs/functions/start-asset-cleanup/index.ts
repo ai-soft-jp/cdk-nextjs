@@ -6,20 +6,22 @@ import {
   StartExecutionCommand,
   StopExecutionCommand,
 } from '@aws-sdk/client-sfn';
-import type { Handler } from 'aws-lambda';
 
-export type Env = {
-  readonly STATE_MACHINE_ARN: string;
-  readonly EXPIRES: string;
+export type ResourceProperties = {
+  readonly Timestamp: number;
+  readonly StateMachineArn: string;
+  readonly Expires: number;
 };
 
-const env = process.env as Env;
 const sfn = new SFNClient();
 
-export const handler: Handler = async () => {
-  const executions = await listRunningExecutions(env.STATE_MACHINE_ARN);
+export const handler: AWSCDKAsyncCustomResource.OnEventHandler = async (event): Promise<undefined> => {
+  if (event.RequestType !== 'Create' && event.RequestType !== 'Update') return;
+
+  const props = event.ResourceProperties as unknown as ResourceProperties;
+  const executions = await listRunningExecutions(props.StateMachineArn);
   await Promise.all(executions.map(stopExecution));
-  await startExecution(env.STATE_MACHINE_ARN, parseInt(env.EXPIRES, 10));
+  await startExecution(props.StateMachineArn, props.Expires);
 };
 
 async function listRunningExecutions(stateMachineArn: string) {

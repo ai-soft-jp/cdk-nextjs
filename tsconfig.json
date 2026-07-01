@@ -41,5 +41,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true
   },
+  "include": ["./lib/**/*", "node_modules/aws-cdk-lib/custom-resources/lib/provider-framework/types.d.ts"],
   "exclude": ["./dist/**/*"]
 }

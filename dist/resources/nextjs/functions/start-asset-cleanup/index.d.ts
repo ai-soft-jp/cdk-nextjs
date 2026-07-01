@@ -1,6 +1,6 @@
-import type { Handler } from 'aws-lambda';
-export type Env = {
-    readonly STATE_MACHINE_ARN: string;
-    readonly EXPIRES: string;
+export type ResourceProperties = {
+    readonly Timestamp: number;
+    readonly StateMachineArn: string;
+    readonly Expires: number;
 };
-export declare const handler: Handler;
+export declare const handler: AWSCDKAsyncCustomResource.OnEventHandler;
