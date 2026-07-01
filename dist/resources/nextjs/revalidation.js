@@ -54,7 +54,7 @@ class NextRevalidation extends constructs_1.Construct {
         const queue = new sqs.Queue(this, 'Queue', {
             fifo: true,
         });
-        const table = new dynamodb.TableV2(this, 'Table', {
+        const table = new dynamodb.TableV2(this, 'TableV2', {
             partitionKey: { name: 'tag', type: dynamodb.AttributeType.STRING },
             sortKey: { name: 'path', type: dynamodb.AttributeType.STRING },
             billing: dynamodb.Billing.onDemand(),
