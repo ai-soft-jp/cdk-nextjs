@@ -41,7 +41,7 @@ export class NextServerStack extends cdk.Stack {
     if (props.hostedZoneId) {
       const zone = route53.HostedZone.fromHostedZoneId(this, 'HostedZone', props.hostedZoneId);
       const target = route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(nextjs.distribution));
-      const recordName = props.domainName;
+      const recordName = `${props.domainName}.`;
       for (const type of ['ARecord', 'AaaaRecord', 'HttpsRecord'] as const) {
         new route53[type](this, type, { zone, recordName, target });
       }
