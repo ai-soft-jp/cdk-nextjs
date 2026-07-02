@@ -9,7 +9,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ai-soft-jp/cdk-nextjs@workspace:."
   dependencies:
-    "@ai-soft-jp/eslint-config": ai-soft-jp/eslint-config
+    "@ai-soft-jp/eslint-config": "npm:*"
     "@aws-sdk/client-s3": "npm:^3.1077.0"
     "@aws-sdk/client-sfn": "npm:^3.1077.0"
     "@types/aws-lambda": "npm:^8.10.162"
@@ -26,21 +26,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ai-soft-jp/eslint-config@ai-soft-jp/eslint-config":
-  version: 0.1.0
-  resolution: "@ai-soft-jp/eslint-config@https://github.com/ai-soft-jp/eslint-config.git#commit=be7ad61abdabf36eba11a593514f45e83c5c89e8"
+"@ai-soft-jp/eslint-config@npm:*":
+  version: 0.1.4
+  resolution: "@ai-soft-jp/eslint-config@npm:0.1.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40ai-soft-jp%2Feslint-config%2F0.1.4%2F2f6a86113afeb75ce54b128d007d361b72f02056"
   dependencies:
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-import: "npm:^2.32.0"
-    typescript-eslint: "npm:^8.61.0"
+    typescript-eslint: "npm:^8.62.1"
   peerDependencies:
     eslint: ^9.0.0 || ^10.0.0
     prettier: ^3.0.0
     typescript: ">=5.0.0 <6.1.0"
-  peerDependenciesMeta:
-    prettier:
-      optional: true
-  checksum: 10c0/32b7562f20eb7ba934fc275fdc6f9b37160ef1c4441e3891af6b377d53470e86be41d1af852c18ac1b41e4e80f9c74931f176c04d33d2368a7866af5c01065fa
+  checksum: 10c0/4a3a55d8d33b24e53cf5433c0e18eb04c3b7f2c61bd668308cb768c1da702c0b6c69c770d489460837603eed5d6634f393cfe1f6412ff4bd75aa317efe78d268
   languageName: node
   linkType: hard
 
@@ -3034,7 +3031,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^8.61.0":
+"typescript-eslint@npm:^8.62.1":
   version: 8.62.1
   resolution: "typescript-eslint@npm:8.62.1"
   dependencies:
