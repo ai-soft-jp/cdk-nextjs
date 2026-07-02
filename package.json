@@ -1,6 +1,11 @@
 {
   "name": "@ai-soft-jp/cdk-nextjs",
-  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-soft-jp/cdk-nextjs.git"
+  },
   "packageManager": "yarn@4.13.0+sha512.5c20ba010c99815433e5c8453112165e673f1c7948d8d2b267f4b5e52097538658388ebc9f9580656d9b75c5cc996f990f611f99304a2197d4c56d21eea370e7",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -14,6 +19,9 @@
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+    "./dist/**/*"
+  ],
   "devDependencies": {
     "@ai-soft-jp/eslint-config": "ai-soft-jp/eslint-config",
     "@aws-sdk/client-s3": "^3.1077.0",
@@ -32,5 +40,9 @@
   },
   "dependencies": {
     "fast-glob": "^3.3.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   }
 }
