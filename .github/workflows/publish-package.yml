@@ -1,12 +1,13 @@
 name: Publish package to GitHub Packages
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - v*
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - uses: actions/checkout@v7
@@ -18,6 +19,7 @@ jobs:
       - run: yarn config set 'npmScopes.ai-soft-jp.npmAuthToken' ${{ secrets.GITHUB_TOKEN }}
       - run: yarn install --immutable
       - run: yarn build
+      - uses: softprops/action-gh-release@v3
+        with:
+          generate_release_notes: true
       - run: yarn npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
