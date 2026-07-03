@@ -16,6 +16,11 @@ export interface NextServerStackProps extends cdk.StackProps, NextjsBaseProps, N
    * @default true
    */
   readonly mxRecords?: false;
+  /**
+   * The weight of Route53 records
+   * @default - None
+   */
+  readonly weight?: number;
 }
 
 export class NextServerStack extends cdk.Stack {
@@ -42,12 +47,13 @@ export class NextServerStack extends cdk.Stack {
       const zone = route53.HostedZone.fromHostedZoneId(this, 'HostedZone', props.hostedZoneId);
       const target = route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(nextjs.distribution));
       const recordName = `${props.domainName}.`;
+      const weight = props.weight;
       for (const type of ['ARecord', 'AaaaRecord', 'HttpsRecord'] as const) {
-        new route53[type](this, type, { zone, recordName, target });
+        new route53[type](this, type, { zone, recordName, target, weight });
       }
       if (props.mxRecords ?? true) {
-        new route53.MxRecord(this, 'MxRecord', { zone, recordName, values: [{ priority: 0, hostName: '.' }] });
-        new route53.TxtRecord(this, 'SpfRecord', { zone, recordName, values: ['v=spf1 -all'] });
+        new route53.MxRecord(this, 'MxRecord', { zone, recordName, values: [{ priority: 0, hostName: '.' }], weight });
+        new route53.TxtRecord(this, 'SpfRecord', { zone, recordName, values: ['v=spf1 -all'], weight });
       }
     }
 
