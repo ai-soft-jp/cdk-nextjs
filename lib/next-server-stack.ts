@@ -15,7 +15,7 @@ export interface NextServerStackProps extends cdk.StackProps, NextjsBaseProps, N
    * Whether to create MX record and TXT record.
    * @default true
    */
-  readonly mxRecords?: false;
+  readonly mxRecords?: boolean;
   /**
    * The weight of Route53 records
    * @default - None
