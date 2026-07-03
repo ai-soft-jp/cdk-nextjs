@@ -50,5 +50,8 @@ export class NextServerStack extends cdk.Stack {
         new route53.TxtRecord(this, 'SpfRecord', { zone, recordName, values: ['v=spf1 -all'] });
       }
     }
+
+    new cdk.CfnOutput(this, 'DistributionId', { value: nextjs.distribution.distributionId });
+    new cdk.CfnOutput(this, 'DistributionDomainName', { value: nextjs.distribution.distributionDomainName });
   }
 }
